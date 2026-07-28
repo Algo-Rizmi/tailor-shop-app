@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tailor
+      POSTGRES_USER: tailor
+      POSTGRES_PASSWORD: tailor_dev_password
+    volumes:
+      - tailor_pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tailor"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./Tailor.Api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: "Host=db;Port=5432;Database=tailor;Username=tailor;Password=tailor_dev_password"
+      Jwt__Secret: "dev-only-local-jwt-signing-secret-do-not-use-in-production-32bytes"
+      GoogleAuth__ClientId: ""
+    ports:
+      - "8080:8080"
+
+volumes:
+  tailor_pg_data:
