@@ -6,4 +6,4 @@ export const DEFAULT_API_BASE_URL = 'https://tailor-shop-api-2i8o.onrender.com';
 // From your Google Cloud OAuth consent screen — see DEPLOY.md for how to
 // create these. Required for the "Continue with Google" button to work.
 export const GOOGLE_WEB_CLIENT_ID = '66015011397-87fk8c0pt0jsljciqmuqd9ikbbbf8hdo.apps.googleusercontent.com';
-export const GOOGLE_ANDROID_CLIENT_ID = '';
+export const GOOGLE_ANDROID_CLIENT_ID = '66015011397-16eglseakls9koua2kamekgvip75ofit.apps.googleusercontent.com';
