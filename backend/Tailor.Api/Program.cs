@@ -55,25 +55,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Temporary diagnostic middleware: logs the full exception loudly and
-// returns it in the response so we can see exactly what's failing on Render
-// without needing dashboard log access. Remove once the 500s are fixed.
-app.Use(async (context, next) =>
-{
-    try
-    {
-        await next();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine("=== UNHANDLED EXCEPTION ===");
-        Console.WriteLine(ex.ToString());
-        context.Response.StatusCode = 500;
-        context.Response.ContentType = "text/plain";
-        await context.Response.WriteAsync(ex.ToString());
-    }
-});
-
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
