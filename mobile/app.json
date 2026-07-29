@@ -2,6 +2,7 @@
   "expo": {
     "name": "mobile",
     "slug": "mobile",
+    "owner": "midfielder",
     "version": "1.0.0",
     "scheme": "tailorshop",
     "orientation": "portrait",
@@ -11,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.tailorshop.receipts",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -26,6 +28,11 @@
       "expo-secure-store",
       "@react-native-community/datetimepicker",
       "expo-web-browser"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5da6239c-4997-464d-996d-9b483d8929c3"
+      }
+    }
   }
 }
