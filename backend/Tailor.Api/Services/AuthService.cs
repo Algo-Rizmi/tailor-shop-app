@@ -60,14 +60,22 @@ public class AuthService(AppDbContext db, JwtTokenService tokenService, IConfigu
 
     public async Task<AuthResponse> GoogleLoginAsync(GoogleLoginRequest request)
     {
-        var clientId = configuration["GoogleAuth:ClientId"]
+        var webClientId = configuration["GoogleAuth:ClientId"]
             ?? throw new InvalidOperationException("Missing GoogleAuth:ClientId configuration.");
+        // Tokens obtained via the Android OAuth client carry that client's ID
+        // as their audience, not the Web client's — both must be accepted.
+        var androidClientId = configuration["GoogleAuth:AndroidClientId"];
+        var audiences = new List<string> { webClientId };
+        if (!string.IsNullOrWhiteSpace(androidClientId))
+        {
+            audiences.Add(androidClientId);
+        }
 
         GoogleJsonWebSignature.Payload payload;
         try
         {
             payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken,
-                new GoogleJsonWebSignature.ValidationSettings { Audience = [clientId] });
+                new GoogleJsonWebSignature.ValidationSettings { Audience = audiences });
         }
         catch (InvalidJwtException)
         {
