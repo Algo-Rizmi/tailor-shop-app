@@ -4,7 +4,7 @@
     "slug": "mobile",
     "owner": "midfielder",
     "version": "1.0.0",
-    "scheme": "tailorshop",
+    "scheme": ["tailorshop", "com.googleusercontent.apps.66015011397-16eglseakls9koua2kamekgvip75ofit"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
